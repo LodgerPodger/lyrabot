@@ -20,13 +20,15 @@ class search(commands.Cog):
             await ctx.channel.send("I'd rather not see that")
         elif 'anthro' in tags:
             await ctx.channel.send("Get some better taste!")
+        elif 'scootabuse' in tags:
+            await ctx.channel.send("Imagine all the people")
         else:
             return False
         return True
 
 
     async def do_nsfw_snark(self, ctx, tags):
-        if 'grimdark' in tags or 'anthro' in tags:
+        if 'grimdark' in tags or 'anthro' in tags or 'scootabuse' in tags:
             await ctx.channel.send("<:ew:532536050350948376>")
             return True
         return False
@@ -94,12 +96,12 @@ class search(commands.Cog):
         if not ctx.channel.is_nsfw():
             if await self.do_sfw_snark(ctx, tags):
                 return
-            extratags = ["-explicit", "-questionable", "-suggestive", "-grimdark", "-anthro"]
+            extratags = ["-explicit", "-questionable", "-suggestive", "-grimdark", "-anthro", "-scootabuse"]
         else: # in nsfw channel
             if await self.do_nsfw_snark(ctx, tags):
                 return
             else:
-                extratags = ["-grimdark", "-anthro"]
+                extratags = ["-grimdark", "-anthro", "-scootabuse"]
 
         for attempt in range(2):
             results = self.searcher.query(*extratags, "(" + ", ".join(tags) + ")").sort_by(sort.RANDOM).limit(1)
